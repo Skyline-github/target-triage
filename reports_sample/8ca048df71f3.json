@@ -1,0 +1,918 @@
+{
+  "id": "8ca048df71f3",
+  "gene_symbol": "MAPT",
+  "gene_name": "MAPT",
+  "ensembl_id": "ENSG00000186868",
+  "uniprot_id": "P10636",
+  "indication": "Alzheimer's disease",
+  "created_at": "2026-10-01 21:23:49",
+  "questions": [
+    {
+      "key": "target",
+      "title": "正确的靶点",
+      "question": "它和疾病之间有没有扎实的因果证据？",
+      "evidences": [
+        {
+          "source": "Open Targets Platform",
+          "check": "靶点-疾病关联强度",
+          "status": "green",
+          "summary": "关联证据充分：frontotemporal dementia（整体 0.788，遗传学 0.951）；注意：Top 关联疾病中未直接匹配“Alzheimer's disease”",
+          "detail": {
+            "top_diseases": [
+              {
+                "disease": "frontotemporal dementia",
+                "efo_id": "MONDO_0017276",
+                "overall": 0.788,
+                "genetic": 0.951,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0.984
+              },
+              {
+                "disease": "Pick disease",
+                "efo_id": "MONDO_0008243",
+                "overall": 0.759,
+                "genetic": 0.885,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0.993
+              },
+              {
+                "disease": "supranuclear palsy, progressive, 1",
+                "efo_id": "MONDO_0010997",
+                "overall": 0.736,
+                "genetic": 0.848,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0.995
+              },
+              {
+                "disease": "progressive supranuclear palsy-parkinsonism syndrome",
+                "efo_id": "MONDO_0009839",
+                "overall": 0.715,
+                "genetic": 0.85,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0.038
+              },
+              {
+                "disease": "atypical progressive supranuclear palsy syndrome",
+                "efo_id": "MONDO_0020488",
+                "overall": 0.715,
+                "genetic": 0.85,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0.012
+              },
+              {
+                "disease": "late-onset Parkinson disease",
+                "efo_id": "MONDO_0008199",
+                "overall": 0.64,
+                "genetic": 0.831,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0.262
+              },
+              {
+                "disease": "semantic dementia",
+                "efo_id": "MONDO_0010857",
+                "overall": 0.638,
+                "genetic": 0.195,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0.167
+              },
+              {
+                "disease": "progressive supranuclear palsy",
+                "efo_id": "MONDO_0019037",
+                "overall": 0.601,
+                "genetic": 0.531,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0.454
+              },
+              {
+                "disease": "Parkinson disease",
+                "efo_id": "MONDO_0005180",
+                "overall": 0.548,
+                "genetic": 0.69,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0.991
+              },
+              {
+                "disease": "atrial fibrillation",
+                "efo_id": "MONDO_0004981",
+                "overall": 0.468,
+                "genetic": 0.76,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0.191
+              }
+            ]
+          },
+          "links": [
+            {
+              "label": "OT 靶点页 (ENSG00000186868)",
+              "url": "https://platform.opentargets.org/target/ENSG00000186868"
+            }
+          ],
+          "manual": false
+        },
+        {
+          "source": "GWAS Catalog / OT 遗传学",
+          "check": "人类遗传学信号",
+          "status": "green",
+          "summary": "存在人类遗传学证据（OT 遗传学分型最高 0.951；GWAS Catalog 命中 0 条）",
+          "detail": {
+            "gwas_catalog": [],
+            "gwas_note": "GWAS Catalog V2 查询失败，请通过链接手动核查：[Errno -3] Temporary failure in name resolution"
+          },
+          "links": [
+            {
+              "label": "GWAS Catalog",
+              "url": "https://www.ebi.ac.uk/gwas/genes/MAPT"
+            }
+          ],
+          "manual": false
+        }
+      ],
+      "manual_checklist": [
+        {
+          "source": "DisGeNET",
+          "check": "基因-疾病关联综合数据",
+          "status": "unknown",
+          "summary": "需注册核查：学术免费申请，商业付费",
+          "detail": null,
+          "links": [
+            {
+              "label": "disgenet.org",
+              "url": "https://www.disgenet.org"
+            }
+          ],
+          "manual": true
+        },
+        {
+          "source": "TTD",
+          "check": "已知和在研治疗靶点",
+          "status": "unknown",
+          "summary": "免费开放数据库，交叉验证靶点-疾病关系",
+          "detail": null,
+          "links": [
+            {
+              "label": "db.idrblab.net/ttd",
+              "url": "https://db.idrblab.net/ttd/"
+            }
+          ],
+          "manual": true
+        }
+      ],
+      "status": "green"
+    },
+    {
+      "key": "tissue",
+      "title": "正确的组织",
+      "question": "药物能不能到达、并在正确的组织里起作用？",
+      "evidences": [
+        {
+          "source": "Human Protein Atlas",
+          "check": "组织分布与表达特异性",
+          "status": "green",
+          "summary": "RNA 表达：Tissue enhanced / Detected in many；蛋白表达：Tissue enriched / Detected in many；19 种组织检出蛋白（中高表达 13 种）；RNA 最富集组织：brain, skeletal muscle",
+          "detail": {
+            "tissue_table": [
+              {
+                "tissue": "rectum",
+                "protein_level": "High",
+                "rna_nx": null
+              },
+              {
+                "tissue": "appendix",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "breast",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "cerebellum",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "cerebral cortex",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "colon",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "duodenum",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "hippocampus",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "kidney",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "skeletal muscle",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "small intestine",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "soft tissue 1",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "soft tissue 2",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "adipose tissue",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "heart muscle",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "nasopharynx",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "pancreas",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "salivary gland",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "testis",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "adrenal gland",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "bone marrow",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "bronchus",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "caudate",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "cervix",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "endometrium 1",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "endometrium 2",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "epididymis",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "esophagus",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "fallopian tube",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "gallbladder",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "liver",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "lung",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "lymph node",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "oral mucosa",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "ovary",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "parathyroid gland",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "placenta",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "prostate",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "seminal vesicle",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              },
+              {
+                "tissue": "skin 1",
+                "protein_level": "Not detected",
+                "rna_nx": null
+              }
+            ],
+            "table_note": "组织级蛋白 IHC Level + RNA NX（HPA v22，按 NX 降序）",
+            "top_rna_tissues": [
+              {
+                "tissue": "brain",
+                "nTPM": 147.9
+              },
+              {
+                "tissue": "skeletal muscle",
+                "nTPM": 83.6
+              }
+            ],
+            "single_cell_specificity": "Group enriched",
+            "subcellular_location": [
+              "Nuclear speckles",
+              "Plasma membrane",
+              "End piece"
+            ],
+            "secretome": "Secreted to blood"
+          },
+          "links": [
+            {
+              "label": "HPA (MAPT)",
+              "url": "https://www.proteinatlas.org/ENSG00000186868/tissue"
+            }
+          ],
+          "manual": false
+        },
+        {
+          "source": "UniProt",
+          "check": "蛋白功能与亚细胞定位",
+          "status": "green",
+          "summary": "Microtubule-associated protein tau：Promotes microtubule assembly and stability, and might be involved in the establishment and maintenance of neuronal polarity (PubMed:21985311). The C-",
+          "detail": {
+            "subcellular_location": "未注释",
+            "uniprot_id": "P10636"
+          },
+          "links": [
+            {
+              "label": "UniProt P10636",
+              "url": "https://www.uniprot.org/uniprotkb/P10636"
+            }
+          ],
+          "manual": false
+        }
+      ],
+      "manual_checklist": [
+        {
+          "source": "KEGG / Reactome",
+          "check": "通路信息",
+          "status": "unknown",
+          "summary": "Reactome 开源可用；KEGG 学术免费、商业需许可",
+          "detail": null,
+          "links": [
+            {
+              "label": "Reactome",
+              "url": "https://reactome.org"
+            },
+            {
+              "label": "KEGG",
+              "url": "https://www.genome.jp/kegg/"
+            }
+          ],
+          "manual": true
+        },
+        {
+          "source": "STRING",
+          "check": "蛋白互作网络全景",
+          "status": "unknown",
+          "summary": "查互作伙伴以判断通路级联影响",
+          "detail": null,
+          "links": [
+            {
+              "label": "STRING (MAPT)",
+              "url": "https://string-db.org/network/9606.MAPT"
+            }
+          ],
+          "manual": true
+        }
+      ],
+      "status": "green"
+    },
+    {
+      "key": "safety",
+      "title": "正确的安全性",
+      "question": "打这个靶点会不会出事？",
+      "evidences": [
+        {
+          "source": "Open Targets（小鼠表型）",
+          "check": "必需基因判定（敲除致死性）",
+          "status": "green",
+          "summary": "小鼠敲除共 61 条表型记录，无致死类表型",
+          "detail": {
+            "phenotypes": [
+              {
+                "label": "abnormal dentate gyrus morphology",
+                "classes": [
+                  "nervous system phenotype"
+                ]
+              },
+              {
+                "label": "motor neuron degeneration",
+                "classes": [
+                  "nervous system phenotype"
+                ]
+              },
+              {
+                "label": "disheveled coat",
+                "classes": [
+                  "integument phenotype"
+                ]
+              },
+              {
+                "label": "abnormal tibialis anterior morphology",
+                "classes": [
+                  "muscle phenotype",
+                  "limbs/digits/tail phenotype"
+                ]
+              },
+              {
+                "label": "abnormal axonal transport",
+                "classes": [
+                  "nervous system phenotype"
+                ]
+              },
+              {
+                "label": "abnormal spatial working memory",
+                "classes": [
+                  "behavior/neurological phenotype"
+                ]
+              },
+              {
+                "label": "abnormal synaptic bouton morphology",
+                "classes": [
+                  "nervous system phenotype"
+                ]
+              },
+              {
+                "label": "increased neuron number",
+                "classes": [
+                  "nervous system phenotype"
+                ]
+              },
+              {
+                "label": "impaired cued conditioning behavior",
+                "classes": [
+                  "behavior/neurological phenotype"
+                ]
+              },
+              {
+                "label": "abnormal spatial learning",
+                "classes": [
+                  "behavior/neurological phenotype"
+                ]
+              },
+              {
+                "label": "postnatal growth retardation",
+                "classes": [
+                  "growth/size/body region phenotype"
+                ]
+              },
+              {
+                "label": "abnormal sexual interaction",
+                "classes": [
+                  "behavior/neurological phenotype"
+                ]
+              },
+              {
+                "label": "abnormal sarcomere morphology",
+                "classes": [
+                  "muscle phenotype",
+                  "cellular phenotype"
+                ]
+              },
+              {
+                "label": "persistence of hyaloid vascular system",
+                "classes": [
+                  "vision/eye phenotype"
+                ]
+              },
+              {
+                "label": "abnormal retina vasculature morphology",
+                "classes": [
+                  "vision/eye phenotype",
+                  "cardiovascular system phenotype"
+                ]
+              },
+              {
+                "label": "cachexia",
+                "classes": [
+                  "growth/size/body region phenotype"
+                ]
+              },
+              {
+                "label": "tremors",
+                "classes": [
+                  "behavior/neurological phenotype"
+                ]
+              },
+              {
+                "label": "abnormal somatosensory cortex morphology",
+                "classes": [
+                  "nervous system phenotype"
+                ]
+              },
+              {
+                "label": "decreased body weight",
+                "classes": [
+                  "growth/size/body region phenotype"
+                ]
+              },
+              {
+                "label": "increased anxiety-related response",
+                "classes": [
+                  "behavior/neurological phenotype"
+                ]
+              },
+              {
+                "label": "excessive scratching",
+                "classes": [
+                  "behavior/neurological phenotype"
+                ]
+              },
+              {
+                "label": "abnormal cued conditioning behavior",
+                "classes": [
+                  "behavior/neurological phenotype"
+                ]
+              },
+              {
+                "label": "impaired balance",
+                "classes": [
+                  "behavior/neurological phenotype"
+                ]
+              },
+              {
+                "label": "enlarged hippocampus",
+                "classes": [
+                  "nervous system phenotype"
+                ]
+              },
+              {
+                "label": "polycystic kidney",
+                "classes": [
+                  "renal/urinary system phenotype",
+                  "growth/size/body region phenotype"
+                ]
+              },
+              {
+                "label": "microgliosis",
+                "classes": [
+                  "hematopoietic system phenotype",
+                  "immune system phenotype",
+                  "nervous system phenotype",
+                  "cellular phenotype"
+                ]
+              },
+              {
+                "label": "impaired contextual conditioning behavior",
+                "classes": [
+                  "behavior/neurological phenotype"
+                ]
+              },
+              {
+                "label": "increased cell proliferation",
+                "classes": [
+                  "cellular phenotype"
+                ]
+              },
+              {
+                "label": "abnormal motor neuron innervation pattern",
+                "classes": [
+                  "nervous system phenotype"
+                ]
+              },
+              {
+                "label": "abnormal object recognition memory",
+                "classes": [
+                  "behavior/neurological phenotype"
+                ]
+              }
+            ]
+          },
+          "links": [],
+          "manual": false
+        },
+        {
+          "source": "gnomAD（经 Open Targets）",
+          "check": "人群 LOF 约束（z 分数）",
+          "status": "green",
+          "summary": "LOF 约束 z = 0.00，弱约束——天然功能缺失携带者表型大概率良性，是最强的安全性背书",
+          "detail": null,
+          "links": [
+            {
+              "label": "gnomAD gene (MAPT)",
+              "url": "https://gnomad.broadinstitute.org/gene/ENSG00000186868"
+            }
+          ],
+          "manual": false
+        },
+        {
+          "source": "Open Targets Safety",
+          "check": "已知安全事件清单",
+          "status": "green",
+          "summary": "无已报告安全事件——但创新靶点也可能只是还没人查过",
+          "detail": {
+            "events": []
+          },
+          "links": [
+            {
+              "label": "OT Safety (MAPT)",
+              "url": "https://platform.opentargets.org/target/ENSG00000186868/safety"
+            }
+          ],
+          "manual": false
+        },
+        {
+          "source": "ChEMBL",
+          "check": "同靶点已上市药物安全记录",
+          "status": "unknown",
+          "summary": "该靶点无上市药物（共 6 条药物记录），同家族药物安全记录请按蛋白家族手动核查",
+          "detail": null,
+          "links": [],
+          "manual": false
+        }
+      ],
+      "manual_checklist": [],
+      "status": "unknown"
+    },
+    {
+      "key": "patient",
+      "title": "正确的患者",
+      "question": "你能不能识别出“对的那群病人”？",
+      "evidences": [
+        {
+          "source": "OncoKB",
+          "check": "伴随诊断/精准肿瘤学证据",
+          "status": "unknown",
+          "summary": "未配置 ONCOKB_TOKEN（oncoKB.org 免费申请学术 token 后启用）",
+          "detail": null,
+          "links": [],
+          "manual": false
+        },
+        {
+          "source": "openFDA",
+          "check": "药物标签中的靶点/突变提及",
+          "status": "unknown",
+          "summary": "药物标签中未检索到提及——非肿瘤靶点常见，肿瘤靶点建议重点走 OncoKB/FDA CDx 清单",
+          "detail": {
+            "note": "openFDA 查询失败（限流 240 次/分钟）：Client error '404 Not Found' for url 'https://api.fda.gov/drug/label.json?search=indications_and_usage%3A%22MAPT%22&limit=10'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+          },
+          "links": [],
+          "manual": false
+        }
+      ],
+      "manual_checklist": [
+        {
+          "source": "FDA 伴随诊断列表",
+          "check": "有无配套伴随诊断",
+          "status": "unknown",
+          "summary": "FDA 已批准/cleared 的伴随诊断器械清单（含对应药物与适应症），标志物已有获批检测说明可检测性经过监管验证",
+          "detail": null,
+          "links": [
+            {
+              "label": "FDA List of Cleared or Approved CDx",
+              "url": "https://www.fda.gov/medical-devices/in-vitro-diagnostics/list-cleared-or-approved-companion-diagnostic-devices-in-vitro-and-imaging-tools"
+            }
+          ],
+          "manual": true
+        },
+        {
+          "source": "PubMed",
+          "check": "人群规模（标志物亚组患病率）",
+          "status": "unknown",
+          "summary": "检索式：disease + prevalence + biomarker + subgroup；标志物把获益人群从 100% 缩到 5% 时，罕见病可能撑不起一个项目",
+          "detail": null,
+          "links": [
+            {
+              "label": "PubMed 检索（自动拼接）",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/?term=Alzheimer's disease+prevalence+biomarker"
+            }
+          ],
+          "manual": true
+        },
+        {
+          "source": "Clarivate Epidemiology Intelligence",
+          "check": "人群规模（商业工具）",
+          "status": "unknown",
+          "summary": "订阅制；预算有限时用上面的 PubMed 检索替代",
+          "detail": null,
+          "links": [
+            {
+              "label": "clarivate.com",
+              "url": "https://clarivate.com"
+            }
+          ],
+          "manual": true
+        }
+      ],
+      "status": "unknown"
+    },
+    {
+      "key": "commercial",
+      "title": "正确的商业",
+      "question": "值不值得做？",
+      "evidences": [
+        {
+          "source": "ClinicalTrials.gov",
+          "check": "竞争格局（临床试验数量与终止原因）",
+          "status": "green",
+          "summary": "ClinicalTrials.gov 有 38 项相关试验（限定“Alzheimer's disease”）——赛道有验证但不拥挤",
+          "detail": {
+            "status_dist": {
+              "RECRUITING": 6,
+              "COMPLETED": 21,
+              "UNKNOWN": 5,
+              "TERMINATED": 1,
+              "ACTIVE NOT RECRUITING": 2,
+              "NOT YET RECRUITING": 2,
+              "WITHDRAWN": 1
+            },
+            "terminated_samples": [
+              {
+                "nct_id": "NCT00978536",
+                "title": "A Monocenter, Cross-sectional Study to Compare Different Type of Cognitive Impairment in Multiple Sclerosis Patients and Cerebrospinal Fluid Biomarkers (Beta Amyloid, Total Tau Protein and Tau-phosphorylated Protein).",
+                "why": "Difficulties of recruitment in a randomization arm"
+              },
+              {
+                "nct_id": "NCT03641768",
+                "title": "Risk Prediction for Alzheimer Dementia With Brain Imaging and Genetics",
+                "why": "Funding not received"
+              }
+            ],
+            "top_conditions": [
+              {
+                "condition": "Alzheimer Disease",
+                "count": 22
+              },
+              {
+                "condition": "Alzheimer's Disease",
+                "count": 7
+              },
+              {
+                "condition": "Healthy Volunteers",
+                "count": 4
+              },
+              {
+                "condition": "Progressive Supranuclear Palsy",
+                "count": 4
+              },
+              {
+                "condition": "Dementia",
+                "count": 3
+              },
+              {
+                "condition": "Alzheimer's Disease (AD)",
+                "count": 3
+              },
+              {
+                "condition": "Cognitive Decline",
+                "count": 2
+              },
+              {
+                "condition": "Progressive Supranuclear Palsy (PSP)",
+                "count": 2
+              },
+              {
+                "condition": "Frontal Temporal Dementia (FTD)",
+                "count": 2
+              },
+              {
+                "condition": "Mild Cognitive Impairment",
+                "count": 2
+              }
+            ],
+            "note": ""
+          },
+          "links": [
+            {
+              "label": "ClinicalTrials.gov 检索",
+              "url": "https://clinicaltrials.gov/search?intr=MAPT&cond=Alzheimer's+disease"
+            }
+          ],
+          "manual": false
+        },
+        {
+          "source": "openFDA",
+          "check": "已上市产品线索（未满足需求参照）",
+          "status": "unknown",
+          "summary": "无已上市产品直接提及——若因果证据扎实，FIC 潜力本身就是机遇",
+          "detail": null,
+          "links": [],
+          "manual": false
+        }
+      ],
+      "manual_checklist": [
+        {
+          "source": "FTO 专利分析",
+          "check": "专利自由空间（Freedom to Operate）",
+          "status": "unknown",
+          "summary": "临床前阶段发现的专利可以用有限资源挑战或绕开；三期才发现就只能高价谈许可或重复临床——立项前必查",
+          "detail": null,
+          "links": [
+            {
+              "label": "Google Patents",
+              "url": "https://patents.google.com/?q=MAPT"
+            }
+          ],
+          "manual": true
+        },
+        {
+          "source": "Cortellis / Evaluate Pharma",
+          "check": "市场预测与交易动态",
+          "status": "unknown",
+          "summary": "订阅制商业情报：同赛道药物的市场预测、交易格局",
+          "detail": null,
+          "links": [
+            {
+              "label": "cortellis.com",
+              "url": "https://www.cortellis.com"
+            },
+            {
+              "label": "evaluate.com",
+              "url": "https://www.evaluate.com"
+            }
+          ],
+          "manual": true
+        }
+      ],
+      "status": "unknown"
+    }
+  ],
+  "overall_status": "unknown",
+  "veto_flags": []
+}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}数据源说明 · 靶点立项五问{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-9">
+    <h2 class="mb-3">数据源说明</h2>
+    <p>五问框架源自 AstraZeneca 5R（Cook et al., <i>Nature Reviews Drug Discovery</i>, 2014）。
+       本工具使用的自动化数据源：</p>
+    <table class="table table-hover bg-white">
+      <thead><tr><th>数据库</th><th>用途</th><th>访问方式</th></tr></thead>
+      <tbody>
+        {% for s in sources %}
+        <tr>
+          <td><a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.name }}</a></td>
+          <td class="small">{{ s.use }}</td>
+          <td class="small">{{ s.license }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h5 class="mt-4">手动核查项（不自动化）</h5>
+    <p class="small">DisGeNET（学术免费/商业付费）、TTD、KEGG（学术免费）、
+       FDA 伴随诊断清单、PubMed（患病率检索）、Clarivate Epidemiology Intelligence / Cortellis /
+       Evaluate Pharma（订阅制）、FTO 专利分析——报告中会给出直达链接和核查指引。</p>
+    <h5 class="mt-4">免责声明</h5>
+    <p class="small text-muted">所有评估结果由公开数据自动生成，阈值仅为启发式规则（可在
+       app/engine/rules.yaml 调整），仅供研究参考，不构成任何立项、临床或投资建议。</p>
+  </div>
+</div>
+{% endblock %}

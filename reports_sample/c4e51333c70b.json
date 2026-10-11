@@ -1,0 +1,944 @@
+{
+  "id": "c4e51333c70b",
+  "gene_symbol": "GLCE",
+  "gene_name": "GLCE",
+  "ensembl_id": "ENSG00000138604",
+  "uniprot_id": "O94923",
+  "indication": "胰腺癌",
+  "created_at": "2026-10-03 00:49:22",
+  "questions": [
+    {
+      "key": "target",
+      "title": "正确的靶点",
+      "question": "它和疾病之间有没有扎实的因果证据？",
+      "evidences": [
+        {
+          "source": "Open Targets Platform",
+          "check": "靶点-疾病关联强度",
+          "status": "yellow",
+          "summary": "关联证据中等：androgenetic alopecia（整体 0.235，遗传学 0.387）；注意：Top 关联疾病中未直接匹配“胰腺癌”",
+          "detail": {
+            "top_diseases": [
+              {
+                "disease": "androgenetic alopecia",
+                "efo_id": "MONDO_0005339",
+                "overall": 0.235,
+                "genetic": 0.387,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0
+              },
+              {
+                "disease": "B-cell chronic lymphocytic leukemia",
+                "efo_id": "MONDO_0004948",
+                "overall": 0.229,
+                "genetic": 0.377,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0
+              },
+              {
+                "disease": "inherited hemoglobinopathy",
+                "efo_id": "MONDO_0019050",
+                "overall": 0.201,
+                "genetic": 0.33,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0
+              },
+              {
+                "disease": "hypothyroidism",
+                "efo_id": "MONDO_0005420",
+                "overall": 0.188,
+                "genetic": 0.309,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0
+              },
+              {
+                "disease": "inherited retinal dystrophy",
+                "efo_id": "MONDO_0019118",
+                "overall": 0.179,
+                "genetic": 0.294,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0
+              },
+              {
+                "disease": "systemic lupus erythematosus",
+                "efo_id": "MONDO_0007915",
+                "overall": 0.17,
+                "genetic": 0.279,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0
+              },
+              {
+                "disease": "rheumatoid arthritis",
+                "efo_id": "MONDO_0008383",
+                "overall": 0.162,
+                "genetic": 0.266,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0
+              },
+              {
+                "disease": "Abnormality of the skeletal system",
+                "efo_id": "HP_0000924",
+                "overall": 0.161,
+                "genetic": 0.264,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0
+              },
+              {
+                "disease": "smoking initiation",
+                "efo_id": "EFO_0005670",
+                "overall": 0.16,
+                "genetic": 0.264,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0
+              },
+              {
+                "disease": "lymphoid leukemia",
+                "efo_id": "MONDO_0005402",
+                "overall": 0.147,
+                "genetic": 0.242,
+                "somatic": 0,
+                "drugs": 0,
+                "literature": 0
+              }
+            ]
+          },
+          "chart": {
+            "type": "bar",
+            "data": {
+              "labels": [
+                "androgenetic alopecia",
+                "B-cell chronic lymphocytic leukemia",
+                "inherited hemoglobinopathy",
+                "hypothyroidism",
+                "inherited retinal dystrophy",
+                "systemic lupus erythematosus",
+                "rheumatoid arthritis",
+                "Abnormality of the skeletal system",
+                "smoking initiation",
+                "lymphoid leukemia"
+              ],
+              "datasets": [
+                {
+                  "label": "整体关联分数",
+                  "data": [
+                    0.235,
+                    0.229,
+                    0.201,
+                    0.188,
+                    0.179,
+                    0.17,
+                    0.162,
+                    0.161,
+                    0.16,
+                    0.147
+                  ],
+                  "backgroundColor": "#2e6b5e",
+                  "borderRadius": 4
+                },
+                {
+                  "label": "其中遗传学",
+                  "data": [
+                    0.387,
+                    0.377,
+                    0.33,
+                    0.309,
+                    0.294,
+                    0.279,
+                    0.266,
+                    0.264,
+                    0.264,
+                    0.242
+                  ],
+                  "backgroundColor": "#d9b25f",
+                  "borderRadius": 4
+                }
+              ]
+            },
+            "options": {
+              "indexAxis": "y",
+              "responsive": true,
+              "maintainAspectRatio": false,
+              "plugins": {
+                "legend": {
+                  "display": true
+                }
+              },
+              "scales": {
+                "x": {
+                  "beginAtZero": true,
+                  "max": 1.0,
+                  "grid": {
+                    "color": "#eef2f0"
+                  }
+                },
+                "y": {
+                  "grid": {
+                    "display": false
+                  }
+                }
+              }
+            }
+          },
+          "links": [
+            {
+              "label": "OT 靶点页 (ENSG00000138604)",
+              "url": "https://platform.opentargets.org/target/ENSG00000138604"
+            }
+          ],
+          "manual": false
+        },
+        {
+          "source": "GWAS Catalog / OT 遗传学",
+          "check": "人类遗传学信号",
+          "status": "green",
+          "summary": "存在人类遗传学证据（OT 遗传学分型最高 0.387；GWAS Catalog 命中 0 条）",
+          "detail": {
+            "gwas_catalog": [],
+            "gwas_note": "GWAS Catalog V2 查询失败，请通过链接手动核查：[Errno -3] Temporary failure in name resolution"
+          },
+          "chart": null,
+          "links": [
+            {
+              "label": "GWAS Catalog",
+              "url": "https://www.ebi.ac.uk/gwas/genes/GLCE"
+            }
+          ],
+          "manual": false
+        }
+      ],
+      "manual_checklist": [
+        {
+          "source": "DisGeNET",
+          "check": "基因-疾病关联综合数据",
+          "status": "unknown",
+          "summary": "需注册核查：学术免费申请，商业付费",
+          "detail": null,
+          "chart": null,
+          "links": [
+            {
+              "label": "disgenet.org",
+              "url": "https://www.disgenet.org"
+            }
+          ],
+          "manual": true
+        },
+        {
+          "source": "TTD",
+          "check": "已知和在研治疗靶点",
+          "status": "unknown",
+          "summary": "免费开放数据库，交叉验证靶点-疾病关系",
+          "detail": null,
+          "chart": null,
+          "links": [
+            {
+              "label": "db.idrblab.net/ttd",
+              "url": "https://db.idrblab.net/ttd/"
+            }
+          ],
+          "manual": true
+        }
+      ],
+      "status": "yellow"
+    },
+    {
+      "key": "tissue",
+      "title": "正确的组织",
+      "question": "药物能不能到达、并在正确的组织里起作用？",
+      "evidences": [
+        {
+          "source": "Human Protein Atlas",
+          "check": "组织分布与表达特异性",
+          "status": "green",
+          "summary": "RNA 表达：Tissue enhanced / Detected in many；蛋白表达：Group enriched / Detected in many；40 种组织检出蛋白（中高表达 33 种）；RNA 最富集组织：brain",
+          "detail": {
+            "tissue_table": [
+              {
+                "tissue": "adrenal gland",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "appendix",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "bronchus",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "caudate",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "cerebellum",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "cerebral cortex",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "cervix",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "colon",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "duodenum",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "endometrium 1",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "endometrium 2",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "epididymis",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "fallopian tube",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "gallbladder",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "heart muscle",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "kidney",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "liver",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "lung",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "nasopharynx",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "pancreas",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "parathyroid gland",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "placenta",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "prostate",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "seminal vesicle",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "skeletal muscle",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "skin 1",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "small intestine",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "soft tissue 1",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "soft tissue 2",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "stomach 1",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "stomach 2",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "testis",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "urinary bladder",
+                "protein_level": "Medium",
+                "rna_nx": null
+              },
+              {
+                "tissue": "breast",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "hippocampus",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "salivary gland",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "skin 2",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "smooth muscle",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "thyroid gland",
+                "protein_level": "Low",
+                "rna_nx": null
+              },
+              {
+                "tissue": "tonsil",
+                "protein_level": "Low",
+                "rna_nx": null
+              }
+            ],
+            "table_note": "组织级蛋白 IHC Level（HPA v22，按等级排序）",
+            "top_rna_tissues": [
+              {
+                "tissue": "brain",
+                "nTPM": 40.9
+              }
+            ],
+            "single_cell_specificity": "Cell type enhanced",
+            "subcellular_location": [
+              "Mitochondria"
+            ],
+            "secretome": null
+          },
+          "chart": {
+            "type": "bar",
+            "data": {
+              "labels": [
+                "adrenal gland",
+                "appendix",
+                "bronchus",
+                "caudate",
+                "cerebellum",
+                "cerebral cortex",
+                "cervix",
+                "colon",
+                "duodenum",
+                "endometrium 1",
+                "endometrium 2",
+                "epididymis"
+              ],
+              "datasets": [
+                {
+                  "label": "蛋白表达强度（IHC 等级）",
+                  "data": [
+                    2,
+                    2,
+                    2,
+                    2,
+                    2,
+                    2,
+                    2,
+                    2,
+                    2,
+                    2,
+                    2,
+                    2
+                  ],
+                  "backgroundColor": [
+                    "#d9b25f",
+                    "#d9b25f",
+                    "#d9b25f",
+                    "#d9b25f",
+                    "#d9b25f",
+                    "#d9b25f",
+                    "#d9b25f",
+                    "#d9b25f",
+                    "#d9b25f",
+                    "#d9b25f",
+                    "#d9b25f",
+                    "#d9b25f"
+                  ],
+                  "borderRadius": 4
+                }
+              ]
+            },
+            "options": {
+              "indexAxis": "y",
+              "responsive": true,
+              "maintainAspectRatio": false,
+              "plugins": {
+                "legend": {
+                  "display": false
+                }
+              },
+              "scales": {
+                "x": {
+                  "beginAtZero": true,
+                  "max": 3,
+                  "grid": {
+                    "color": "#eef2f0"
+                  }
+                },
+                "y": {
+                  "grid": {
+                    "display": false
+                  }
+                }
+              }
+            }
+          },
+          "links": [
+            {
+              "label": "HPA (GLCE)",
+              "url": "https://www.proteinatlas.org/ENSG00000138604/tissue"
+            }
+          ],
+          "manual": false
+        },
+        {
+          "source": "UniProt",
+          "check": "蛋白功能与亚细胞定位",
+          "status": "green",
+          "summary": "D-glucuronyl C5-epimerase：Converts D-glucuronic acid residues adjacent to N-sulfate sugar residues to L-iduronic acid residues, both in maturing heparan sulfate (HS) and hepari",
+          "detail": {
+            "subcellular_location": "未注释",
+            "uniprot_id": "O94923"
+          },
+          "chart": null,
+          "links": [
+            {
+              "label": "UniProt O94923",
+              "url": "https://www.uniprot.org/uniprotkb/O94923"
+            }
+          ],
+          "manual": false
+        }
+      ],
+      "manual_checklist": [
+        {
+          "source": "KEGG / Reactome",
+          "check": "通路信息",
+          "status": "unknown",
+          "summary": "Reactome 开源可用；KEGG 学术免费、商业需许可",
+          "detail": null,
+          "chart": null,
+          "links": [
+            {
+              "label": "Reactome",
+              "url": "https://reactome.org"
+            },
+            {
+              "label": "KEGG",
+              "url": "https://www.genome.jp/kegg/"
+            }
+          ],
+          "manual": true
+        },
+        {
+          "source": "STRING",
+          "check": "蛋白互作网络全景",
+          "status": "unknown",
+          "summary": "查互作伙伴以判断通路级联影响",
+          "detail": null,
+          "chart": null,
+          "links": [
+            {
+              "label": "STRING (GLCE)",
+              "url": "https://string-db.org/network/9606.GLCE"
+            }
+          ],
+          "manual": true
+        }
+      ],
+      "status": "green"
+    },
+    {
+      "key": "safety",
+      "title": "正确的安全性",
+      "question": "打这个靶点会不会出事？",
+      "evidences": [
+        {
+          "source": "Open Targets（小鼠表型）",
+          "check": "必需基因判定（敲除致死性）",
+          "status": "red",
+          "summary": "小鼠敲除记录到致死类表型（如：neonatal lethality, complete penetrance）——提示该基因在正常生理中可能有不可替代的功能，抑制它的安全窗需要重点评估",
+          "detail": {
+            "phenotypes": [
+              {
+                "label": "absent kidney",
+                "classes": [
+                  "renal/urinary system phenotype"
+                ]
+              },
+              {
+                "label": "abnormal lung morphology",
+                "classes": [
+                  "respiratory system phenotype"
+                ]
+              },
+              {
+                "label": "iris coloboma",
+                "classes": [
+                  "vision/eye phenotype"
+                ]
+              },
+              {
+                "label": "abnormal skeleton development",
+                "classes": [
+                  "skeleton phenotype"
+                ]
+              },
+              {
+                "label": "abnormal bone mineralization",
+                "classes": [
+                  "skeleton phenotype"
+                ]
+              },
+              {
+                "label": "abnormal phalanx morphology",
+                "classes": [
+                  "limbs/digits/tail phenotype",
+                  "skeleton phenotype"
+                ]
+              },
+              {
+                "label": "decreased body length",
+                "classes": [
+                  "growth/size/body region phenotype"
+                ]
+              },
+              {
+                "label": "respiratory failure",
+                "classes": [
+                  "respiratory system phenotype"
+                ]
+              },
+              {
+                "label": "abnormal thoracic cage morphology",
+                "classes": [
+                  "skeleton phenotype"
+                ]
+              },
+              {
+                "label": "neonatal lethality, complete penetrance",
+                "classes": [
+                  "mortality/aging"
+                ]
+              },
+              {
+                "label": "cleft palate",
+                "classes": [
+                  "craniofacial phenotype",
+                  "digestive/alimentary phenotype",
+                  "growth/size/body region phenotype"
+                ]
+              },
+              {
+                "label": "polydactyly",
+                "classes": [
+                  "limbs/digits/tail phenotype"
+                ]
+              },
+              {
+                "label": "absent tarsus bones",
+                "classes": [
+                  "limbs/digits/tail phenotype",
+                  "skeleton phenotype"
+                ]
+              },
+              {
+                "label": "abnormal sternum morphology",
+                "classes": [
+                  "skeleton phenotype"
+                ]
+              },
+              {
+                "label": "curly tail",
+                "classes": [
+                  "limbs/digits/tail phenotype"
+                ]
+              },
+              {
+                "label": "increased pulmonary alveolus wall thickness",
+                "classes": [
+                  "respiratory system phenotype"
+                ]
+              }
+            ]
+          },
+          "chart": null,
+          "links": [],
+          "manual": false
+        },
+        {
+          "source": "gnomAD（经 Open Targets）",
+          "check": "人群 LOF 约束（z 分数）",
+          "status": "green",
+          "summary": "LOF 约束 z = 0.48，弱约束——天然功能缺失携带者表型大概率良性，是最强的安全性背书",
+          "detail": null,
+          "chart": null,
+          "links": [
+            {
+              "label": "gnomAD gene (GLCE)",
+              "url": "https://gnomad.broadinstitute.org/gene/ENSG00000138604"
+            }
+          ],
+          "manual": false
+        },
+        {
+          "source": "Open Targets Safety",
+          "check": "已知安全事件清单",
+          "status": "green",
+          "summary": "无已报告安全事件——但创新靶点也可能只是还没人查过",
+          "detail": {
+            "events": []
+          },
+          "chart": null,
+          "links": [
+            {
+              "label": "OT Safety (GLCE)",
+              "url": "https://platform.opentargets.org/target/ENSG00000138604/safety"
+            }
+          ],
+          "manual": false
+        },
+        {
+          "source": "ChEMBL",
+          "check": "同靶点已上市药物安全记录",
+          "status": "unknown",
+          "summary": "ChEMBL 未解析到该靶点",
+          "detail": null,
+          "chart": null,
+          "links": [],
+          "manual": false
+        }
+      ],
+      "manual_checklist": [],
+      "status": "red"
+    },
+    {
+      "key": "patient",
+      "title": "正确的患者",
+      "question": "你能不能识别出“对的那群病人”？",
+      "evidences": [
+        {
+          "source": "OncoKB",
+          "check": "伴随诊断/精准肿瘤学证据",
+          "status": "unknown",
+          "summary": "未配置 ONCOKB_TOKEN（oncoKB.org 免费申请学术 token 后启用）",
+          "detail": null,
+          "chart": null,
+          "links": [],
+          "manual": false
+        },
+        {
+          "source": "openFDA",
+          "check": "药物标签中的靶点/突变提及",
+          "status": "unknown",
+          "summary": "药物标签中未检索到提及——非肿瘤靶点常见，肿瘤靶点建议重点走 OncoKB/FDA CDx 清单",
+          "detail": {
+            "note": "openFDA 查询失败（限流 240 次/分钟）：Client error '404 Not Found' for url 'https://api.fda.gov/drug/label.json?search=indications_and_usage%3A%22GLCE%22&limit=10'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+          },
+          "chart": null,
+          "links": [],
+          "manual": false
+        }
+      ],
+      "manual_checklist": [
+        {
+          "source": "FDA 伴随诊断列表",
+          "check": "有无配套伴随诊断",
+          "status": "unknown",
+          "summary": "FDA 已批准/cleared 的伴随诊断器械清单（含对应药物与适应症），标志物已有获批检测说明可检测性经过监管验证",
+          "detail": null,
+          "chart": null,
+          "links": [
+            {
+              "label": "FDA List of Cleared or Approved CDx",
+              "url": "https://www.fda.gov/medical-devices/in-vitro-diagnostics/list-cleared-or-approved-companion-diagnostic-devices-in-vitro-and-imaging-tools"
+            }
+          ],
+          "manual": true
+        },
+        {
+          "source": "PubMed",
+          "check": "人群规模（标志物亚组患病率）",
+          "status": "unknown",
+          "summary": "检索式：disease + prevalence + biomarker + subgroup；标志物把获益人群从 100% 缩到 5% 时，罕见病可能撑不起一个项目",
+          "detail": null,
+          "chart": null,
+          "links": [
+            {
+              "label": "PubMed 检索（自动拼接）",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/?term=胰腺癌+prevalence+biomarker"
+            }
+          ],
+          "manual": true
+        },
+        {
+          "source": "Clarivate Epidemiology Intelligence",
+          "check": "人群规模（商业工具）",
+          "status": "unknown",
+          "summary": "订阅制；预算有限时用上面的 PubMed 检索替代",
+          "detail": null,
+          "chart": null,
+          "links": [
+            {
+              "label": "clarivate.com",
+              "url": "https://clarivate.com"
+            }
+          ],
+          "manual": true
+        }
+      ],
+      "status": "unknown"
+    },
+    {
+      "key": "commercial",
+      "title": "正确的商业",
+      "question": "值不值得做？",
+      "evidences": [
+        {
+          "source": "ClinicalTrials.gov",
+          "check": "竞争格局（临床试验数量与终止原因）",
+          "status": "yellow",
+          "summary": "ClinicalTrials.gov 无相关试验（限定“胰腺癌”）——别人推进了可以借力；没人推进可能是空白，也可能是坑：把不确定性拆成可逐步验证的问题",
+          "detail": {
+            "status_dist": {},
+            "terminated_samples": [],
+            "top_conditions": [],
+            "note": ""
+          },
+          "chart": null,
+          "links": [
+            {
+              "label": "ClinicalTrials.gov 检索",
+              "url": "https://clinicaltrials.gov/search?intr=GLCE&cond=胰腺癌"
+            }
+          ],
+          "manual": false
+        },
+        {
+          "source": "openFDA",
+          "check": "已上市产品线索（未满足需求参照）",
+          "status": "unknown",
+          "summary": "无已上市产品直接提及——若因果证据扎实，FIC 潜力本身就是机遇",
+          "detail": null,
+          "chart": null,
+          "links": [],
+          "manual": false
+        }
+      ],
+      "manual_checklist": [
+        {
+          "source": "FTO 专利分析",
+          "check": "专利自由空间（Freedom to Operate）",
+          "status": "unknown",
+          "summary": "临床前阶段发现的专利可以用有限资源挑战或绕开；三期才发现就只能高价谈许可或重复临床——立项前必查",
+          "detail": null,
+          "chart": null,
+          "links": [
+            {
+              "label": "Google Patents",
+              "url": "https://patents.google.com/?q=GLCE"
+            }
+          ],
+          "manual": true
+        },
+        {
+          "source": "Cortellis / Evaluate Pharma",
+          "check": "市场预测与交易动态",
+          "status": "unknown",
+          "summary": "订阅制商业情报：同赛道药物的市场预测、交易格局",
+          "detail": null,
+          "chart": null,
+          "links": [
+            {
+              "label": "cortellis.com",
+              "url": "https://www.cortellis.com"
+            },
+            {
+              "label": "evaluate.com",
+              "url": "https://www.evaluate.com"
+            }
+          ],
+          "manual": true
+        }
+      ],
+      "status": "yellow"
+    }
+  ],
+  "overall_status": "red",
+  "risk_flags": [
+    "正确的安全性 · 必需基因判定（敲除致死性）：小鼠敲除记录到致死类表型（如：neonatal lethality, complete penetrance）——提示该基因在正常生理中可能有不可替代的功能，抑制它的安全窗需要重点评估"
+  ],
+  "watch_flags": [
+    "正确的靶点 · 靶点-疾病关联强度：关联证据中等：androgenetic alopecia（整体 0.235，遗传学 0.387）；注意：Top 关联疾病中未直接匹配“胰腺癌”",
+    "正确的商业 · 竞争格局（临床试验数量与终止原因）：ClinicalTrials.gov 无相关试验（限定“胰腺癌”）——别人推进了可以借力；没人推进可能是空白，也可能是坑：把不确定性拆成可逐步验证的问题"
+  ]
+}

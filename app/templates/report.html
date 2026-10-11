@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% from "_macros.html" import question_section %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-11">
+
+    {# ---------- 概览卡片 ---------- #}
+    <div class="card overview-card p-4 mb-4">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <h2 class="mb-0">{{ r.gene_symbol }}
+            {% if r.gene_name and r.gene_name != r.gene_symbol %}
+              <span class="text-muted h5">{{ r.gene_name }}</span>{% endif %}</h2>
+          <p class="text-muted small mt-1 mb-2">
+            Ensembl: {{ r.ensembl_id }} · UniProt: {{ r.uniprot_id or "—" }}<br>
+            适应症: {{ r.indication or "不限" }} · 评估时间: {{ r.created_at }}
+          </p>
+          <div class="mb-3">
+            <span class="badge badge-status-{{ r.overall_status }} fs-6">
+              总体筛查信号：{{ badge[r.overall_status] }}</span>
+          </div>
+          <div class="chart-box" style="height:230px;max-width:340px">
+            <canvas id="cv-radar"></canvas>
+          </div>
+          <script id="cfg-radar" type="application/json">{{ radar_cfg | tojson }}</script>
+        </div>
+        <div class="col-lg-7">
+          <div class="p-3 rounded flag-box mb-3" style="background:#fdf1f2;border:1px solid #f1c4ca">
+            <div class="fw-bold small mb-2">🚩 风险信号（{{ r.risk_flags | length }}）——数据筛查提示，需人工判断，不等于结论</div>
+            {% if r.risk_flags %}
+              <ul class="mb-0 small">{% for v in r.risk_flags %}<li>{{ v }}</li>{% endfor %}</ul>
+            {% else %}<div class="small text-muted">无</div>{% endif %}
+          </div>
+          <div class="p-3 rounded flag-box" style="background:#fdf8ec;border:1px solid #ead9a8">
+            <div class="fw-bold small mb-2">👀 建议进一步核查（{{ r.watch_flags | length }}）</div>
+            {% if r.watch_flags %}
+              <ul class="mb-0 small">{% for v in r.watch_flags %}<li>{{ v }}</li>{% endfor %}</ul>
+            {% else %}<div class="small text-muted">无</div>{% endif %}
+          </div>
+          <div class="form-text mt-2">
+            红/黄/绿由 {{ rule_note }} 中的阈值规则自动生成，仅为筛查参考；
+            五问是乘法关系——重点关注哪个维度会成为短板，而不是算总分。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {# ---------- 五问导航卡片 ---------- #}
+    <div class="row g-3 mb-4">
+      {% for q in r.questions %}
+      <div class="col-6 col-md-4 col-lg">
+        <a class="card q-nav text-decoration-none h-100 p-3 d-block border-status-{{ q.status }}"
+           href="#q-{{ q.key }}">
+          <div class="small text-muted">{{ loop.index }}</div>
+          <div class="fw-bold">{{ q.title }}</div>
+          <span class="badge badge-status-{{ q.status }} mt-2">{{ badge[q.status] }}</span>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+
+    {# ---------- 五问明细 ---------- #}
+    {% for q in r.questions %}
+      {{ question_section(q, loop.index, r.id ~ '-' ~ q.key) }}
+    {% endfor %}
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+// 渲染页面上所有 <script id="cfg-*"> 中存放的 Chart.js 配置
+(function () {
+  document.querySelectorAll('script[id^="cfg-"]').forEach(function (s) {
+    var canvasId = "cv-" + s.id.slice(4);
+    var canvas = document.getElementById(canvasId);
+    if (!canvas || typeof Chart === "undefined") return;
+    var cfg = JSON.parse(s.textContent);
+    if (cfg.type === "radar") {
+      cfg.options = Object.assign({responsive: true, maintainAspectRatio: false}, cfg.options);
+    }
+    new Chart(canvas, cfg);
+  });
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,9 @@
+# 完整 conda 环境定义：conda env create -f environment.yml
+name: tav
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - -r requirements.txt

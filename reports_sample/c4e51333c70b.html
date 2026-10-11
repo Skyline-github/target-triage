@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>靶点立项五问 · GLCE</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <style>
+    body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+           color: #1d3a34; max-width: 1080px; margin: 2rem auto; padding: 0 1rem;
+           background: #f1f4f3; }
+    .card { background: #fff; border: 1px solid #e2e8e6; border-radius: 10px;
+            padding: 1rem 1.2rem; margin-bottom: .9rem;
+            box-shadow: 0 1px 2px rgba(29,58,52,.05); }
+    .q-header { margin-bottom: 1rem; }
+    .badge { display: inline-block; padding: .2em .6em; border-radius: 999px;
+             font-size: .8rem; font-weight: 600; }
+    .badge-status-green   { background: #d1e7dd; color: #0f5132; }
+    .badge-status-yellow  { background: #fff3cd; color: #664d03; }
+    .badge-status-red     { background: #f8d7da; color: #842029; }
+    .badge-status-unknown { background: #e2e3e5; color: #41464b; }
+    .flag-box { border-radius: 8px; padding: .8rem 1rem; margin-bottom: .8rem;
+                font-size: .9rem; }
+    pre { background: #f2f4f3; padding: .6rem; border-radius: 6px;
+          font-size: .78rem; overflow: auto; max-height: 280px; }
+    .muted { color: #6b7c78; }
+    a { color: #2e6b5e; }
+    .overview { background: linear-gradient(180deg, #fff, #f7faf9); }
+    .question-card { border-top: 4px solid #2e6b5e; }
+    .chart-box { position: relative; height: 250px; }
+    .row { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .col { flex: 1 1 320px; }
+  </style>
+</head>
+<body>
+<div class="card overview">
+  <div class="row">
+    <div class="col">
+      <h1 style="font-size:1.6rem;margin:.2rem 0">GLCE
+        </h1>
+      <p class="muted" style="font-size:.88rem">
+        Ensembl: ENSG00000138604 · UniProt: O94923<br>
+        适应症：胰腺癌 · 评估时间：2026-10-03 00:49:22</p>
+      <span class="badge badge-status-red">
+        总体筛查信号：🔴 危险信号</span>
+      <div class="chart-box" style="max-width:340px">
+        <canvas id="cv-radar"></canvas>
+      </div>
+      <script id="cfg-radar" type="application/json">{"data": {"datasets": [{"backgroundColor": "rgba(46,107,94,.22)", "borderColor": "#2e6b5e", "borderWidth": 2, "data": [2, 3, 1, 1.5, 2], "label": "\u4e94\u95ee\u72b6\u6001", "pointBackgroundColor": ["#d9b25f", "#2e6b5e", "#c0504d", "#9aa5a1", "#d9b25f"]}], "labels": ["\u6b63\u786e\u7684\u9776\u70b9", "\u6b63\u786e\u7684\u7ec4\u7ec7", "\u6b63\u786e\u7684\u5b89\u5168\u6027", "\u6b63\u786e\u7684\u60a3\u8005", "\u6b63\u786e\u7684\u5546\u4e1a"]}, "options": {"maintainAspectRatio": false, "plugins": {"legend": {"display": false}}, "responsive": true, "scales": {"r": {"angleLines": {"color": "#e3e9e6"}, "grid": {"color": "#e3e9e6"}, "max": 3, "min": 0, "pointLabels": {"font": {"size": 11}}, "ticks": {"backdropColor": "transparent", "stepSize": 1}}}}, "type": "radar"}</script>
+    </div>
+    <div class="col">
+      <div class="flag-box" style="background:#fdf1f2;border:1px solid #f1c4ca">
+        <b>🚩 风险信号（1）——数据筛查提示，需人工判断，不等于结论</b>
+        <ul><li>正确的安全性 · 必需基因判定（敲除致死性）：小鼠敲除记录到致死类表型（如：neonatal lethality, complete penetrance）——提示该基因在正常生理中可能有不可替代的功能，抑制它的安全窗需要重点评估</li></ul>
+        
+      </div>
+      <div class="flag-box" style="background:#fdf8ec;border:1px solid #ead9a8">
+        <b>👀 建议进一步核查（2）</b>
+        <ul><li>正确的靶点 · 靶点-疾病关联强度：关联证据中等：androgenetic alopecia（整体 0.235，遗传学 0.387）；注意：Top 关联疾病中未直接匹配“胰腺癌”</li><li>正确的商业 · 竞争格局（临床试验数量与终止原因）：ClinicalTrials.gov 无相关试验（限定“胰腺癌”）——别人推进了可以借力；没人推进可能是空白，也可能是坑：把不确定性拆成可逐步验证的问题</li></ul>
+        
+      </div>
+      <p class="muted" style="font-size:.82rem">
+        红/黄/绿由阈值规则（app/engine/rules.yaml）自动生成，仅为筛查参考；
+        五问是乘法关系——重点关注哪个维度会成为短板，而不是算总分。</p>
+    </div>
+  </div>
+</div>
+
+
+
+  
+  <div class="card question-card">
+    <div class="q-header">
+      <h3 style="margin:0">1. 正确的靶点
+        <span class="badge badge-status-yellow">🟡 需注意</span></h3>
+      <div class="muted">它和疾病之间有没有扎实的因果证据？</div>
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-yellow">🟡 需注意</span>
+      <b> Open Targets Platform</b> <span class="muted">· 靶点-疾病关联强度</span>
+      <div style="margin-top:.4rem">关联证据中等：androgenetic alopecia（整体 0.235，遗传学 0.387）；注意：Top 关联疾病中未直接匹配“胰腺癌”</div>
+      
+        
+        <div class="chart-box"><canvas id="cv-1-1"></canvas>
+          <script id="cfg-1-1" type="application/json">{"data": {"datasets": [{"backgroundColor": "#2e6b5e", "borderRadius": 4, "data": [0.235, 0.229, 0.201, 0.188, 0.179, 0.17, 0.162, 0.161, 0.16, 0.147], "label": "\u6574\u4f53\u5173\u8054\u5206\u6570"}, {"backgroundColor": "#d9b25f", "borderRadius": 4, "data": [0.387, 0.377, 0.33, 0.309, 0.294, 0.279, 0.266, 0.264, 0.264, 0.242], "label": "\u5176\u4e2d\u9057\u4f20\u5b66"}], "labels": ["androgenetic alopecia", "B-cell chronic lymphocytic leukemia", "inherited hemoglobinopathy", "hypothyroidism", "inherited retinal dystrophy", "systemic lupus erythematosus", "rheumatoid arthritis", "Abnormality of the skeletal system", "smoking initiation", "lymphoid leukemia"]}, "options": {"indexAxis": "y", "maintainAspectRatio": false, "plugins": {"legend": {"display": true}}, "responsive": true, "scales": {"x": {"beginAtZero": true, "grid": {"color": "#eef2f0"}, "max": 1.0}, "y": {"grid": {"display": false}}}}, "type": "bar"}</script>
+        </div>
+        
+      
+      <pre>{
+  "top_diseases": [
+    {
+      "disease": "androgenetic alopecia",
+      "drugs": 0,
+      "efo_id": "MONDO_0005339",
+      "genetic": 0.387,
+      "literature": 0,
+      "overall": 0.235,
+      "somatic": 0
+    },
+    {
+      "disease": "B-cell chronic lymphocytic leukemia",
+      "drugs": 0,
+      "efo_id": "MONDO_0004948",
+      "genetic": 0.377,
+      "literature": 0,
+      "overall": 0.229,
+      "somatic": 0
+    },
+    {
+      "disease": "inherited hemoglobinopathy",
+      "drugs": 0,
+      "efo_id": "MONDO_0019050",
+      "genetic": 0.33,
+      "literature": 0,
+      "overall": 0.201,
+      "somatic": 0
+    },
+    {
+      "disease": "hypothyroidism",
+      "drugs": 0,
+      "efo_id": "MONDO_0005420",
+      "genetic": 0.309,
+      "literature": 0,
+      "overall": 0.188,
+      "somatic": 0
+    },
+    {
+      "disease": "inherited retinal dystrophy",
+      "drugs": 0,
+      "efo_id": "MONDO_0019118",
+      "genetic": 0.294,
+      "literature": 0,
+      "overall": 0.179,
+      "somatic": 0
+    },
+    {
+      "disease": "systemic lupus erythematosus",
+      "drugs": 0,
+      "efo_id": "MONDO_0007915",
+      "genetic": 0.279,
+      "literature": 0,
+      "overall": 0.17,
+      "somatic": 0
+    },
+    {
+      "disease": "rheumatoid arthritis",
+      "drugs": 0,
+      "efo_id": "MONDO_0008383",
+      "genetic": 0.266,
+      "literature": 0,
+      "overall": 0.162,
+      "somatic": 0
+    },
+    {
+      "disease": "Abnormality of the skeletal system",
+      "drugs": 0,
+      "efo_id": "HP_0000924",
+      "genetic": 0.264,
+      "literature": 0,
+      "overall": 0.161,
+      "somatic": 0
+    },
+    {
+      "disease": "smoking initiation",
+      "drugs": 0,
+      "efo_id": "EFO_0005670",
+      "genetic": 0.264,
+      "literature": 0,
+      "overall": 0.16,
+      "somatic": 0
+    },
+    {
+      "disease": "lymphoid leukemia",
+      "drugs": 0,
+      "efo_id": "MONDO_0005402",
+      "genetic": 0.242,
+      "literature": 0,
+      "overall": 0.147,
+      "somatic": 0
+    }
+  ]
+}</pre>
+      
+      <div style="font-size:.85rem;margin-top:.4rem">
+        <a href="https://platform.opentargets.org/target/ENSG00000138604" target="_blank" rel="noopener">🔗 OT 靶点页 (ENSG00000138604)</a>　
+      </div>
+      
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-green">🟢 良好</span>
+      <b> GWAS Catalog / OT 遗传学</b> <span class="muted">· 人类遗传学信号</span>
+      <div style="margin-top:.4rem">存在人类遗传学证据（OT 遗传学分型最高 0.387；GWAS Catalog 命中 0 条）</div>
+      
+      <pre>{
+  "gwas_catalog": [],
+  "gwas_note": "GWAS Catalog V2 \u67e5\u8be2\u5931\u8d25\uff0c\u8bf7\u901a\u8fc7\u94fe\u63a5\u624b\u52a8\u6838\u67e5\uff1a[Errno -3] Temporary failure in name resolution"
+}</pre>
+      
+      <div style="font-size:.85rem;margin-top:.4rem">
+        <a href="https://www.ebi.ac.uk/gwas/genes/GLCE" target="_blank" rel="noopener">🔗 GWAS Catalog</a>　
+      </div>
+      
+    </div>
+    
+    
+    <div style="background:#f2f4f3;border-radius:8px;padding:.8rem;margin-top:.6rem">
+      <b style="font-size:.9rem">📝 手动核查清单</b>
+      
+      <div style="font-size:.88rem;margin-top:.4rem">
+        <b>DisGeNET · 基因-疾病关联综合数据</b> — 需注册核查：学术免费申请，商业付费
+        <a href="https://www.disgenet.org" target="_blank" rel="noopener">🔗 disgenet.org</a>
+      </div>
+      
+      <div style="font-size:.88rem;margin-top:.4rem">
+        <b>TTD · 已知和在研治疗靶点</b> — 免费开放数据库，交叉验证靶点-疾病关系
+        <a href="https://db.idrblab.net/ttd/" target="_blank" rel="noopener">🔗 db.idrblab.net/ttd</a>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="card question-card">
+    <div class="q-header">
+      <h3 style="margin:0">2. 正确的组织
+        <span class="badge badge-status-green">🟢 良好</span></h3>
+      <div class="muted">药物能不能到达、并在正确的组织里起作用？</div>
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-green">🟢 良好</span>
+      <b> Human Protein Atlas</b> <span class="muted">· 组织分布与表达特异性</span>
+      <div style="margin-top:.4rem">RNA 表达：Tissue enhanced / Detected in many；蛋白表达：Group enriched / Detected in many；40 种组织检出蛋白（中高表达 33 种）；RNA 最富集组织：brain</div>
+      
+        
+        <div class="chart-box"><canvas id="cv-1-2"></canvas>
+          <script id="cfg-1-2" type="application/json">{"data": {"datasets": [{"backgroundColor": ["#d9b25f", "#d9b25f", "#d9b25f", "#d9b25f", "#d9b25f", "#d9b25f", "#d9b25f", "#d9b25f", "#d9b25f", "#d9b25f", "#d9b25f", "#d9b25f"], "borderRadius": 4, "data": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], "label": "\u86cb\u767d\u8868\u8fbe\u5f3a\u5ea6\uff08IHC \u7b49\u7ea7\uff09"}], "labels": ["adrenal gland", "appendix", "bronchus", "caudate", "cerebellum", "cerebral cortex", "cervix", "colon", "duodenum", "endometrium 1", "endometrium 2", "epididymis"]}, "options": {"indexAxis": "y", "maintainAspectRatio": false, "plugins": {"legend": {"display": false}}, "responsive": true, "scales": {"x": {"beginAtZero": true, "grid": {"color": "#eef2f0"}, "max": 3}, "y": {"grid": {"display": false}}}}, "type": "bar"}</script>
+        </div>
+        
+      
+      <pre>{
+  "secretome": null,
+  "single_cell_specificity": "Cell type enhanced",
+  "subcellular_location": [
+    "Mitochondria"
+  ],
+  "table_note": "\u7ec4\u7ec7\u7ea7\u86cb\u767d IHC Level\uff08HPA v22\uff0c\u6309\u7b49\u7ea7\u6392\u5e8f\uff09",
+  "tissue_table": [
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "adrenal gland"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "appendix"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "bronchus"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "caudate"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "cerebellum"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "cerebral cortex"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "cervix"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "colon"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "duodenum"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "endometrium 1"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "endometrium 2"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "epididymis"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "fallopian tube"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "gallbladder"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "heart muscle"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "kidney"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "liver"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "lung"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "nasopharynx"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "pancreas"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "parathyroid gland"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "placenta"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "prostate"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "seminal vesicle"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "skeletal muscle"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "skin 1"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "small intestine"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "soft tissue 1"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "soft tissue 2"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "stomach 1"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "stomach 2"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "testis"
+    },
+    {
+      "protein_level": "Medium",
+      "rna_nx": null,
+      "tissue": "urinary bladder"
+    },
+    {
+      "protein_level": "Low",
+      "rna_nx": null,
+      "tissue": "breast"
+    },
+    {
+      "protein_level": "Low",
+      "rna_nx": null,
+      "tissue": "hippocampus"
+    },
+    {
+      "protein_level": "Low",
+      "rna_nx": null,
+      "tissue": "salivary gland"
+    },
+    {
+      "protein_level": "Low",
+      "rna_nx": null,
+      "tissue": "skin 2"
+    },
+    {
+      "protein_level": "Low",
+      "rna_nx": null,
+      "tissue": "smooth muscle"
+    },
+    {
+      "protein_level": "Low",
+      "rna_nx": null,
+...</pre>
+      
+      <div style="font-size:.85rem;margin-top:.4rem">
+        <a href="https://www.proteinatlas.org/ENSG00000138604/tissue" target="_blank" rel="noopener">🔗 HPA (GLCE)</a>　
+      </div>
+      
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-green">🟢 良好</span>
+      <b> UniProt</b> <span class="muted">· 蛋白功能与亚细胞定位</span>
+      <div style="margin-top:.4rem">D-glucuronyl C5-epimerase：Converts D-glucuronic acid residues adjacent to N-sulfate sugar residues to L-iduronic acid residues, both in maturing heparan sulfate (HS) and hepari</div>
+      
+      <pre>{
+  "subcellular_location": "\u672a\u6ce8\u91ca",
+  "uniprot_id": "O94923"
+}</pre>
+      
+      <div style="font-size:.85rem;margin-top:.4rem">
+        <a href="https://www.uniprot.org/uniprotkb/O94923" target="_blank" rel="noopener">🔗 UniProt O94923</a>　
+      </div>
+      
+    </div>
+    
+    
+    <div style="background:#f2f4f3;border-radius:8px;padding:.8rem;margin-top:.6rem">
+      <b style="font-size:.9rem">📝 手动核查清单</b>
+      
+      <div style="font-size:.88rem;margin-top:.4rem">
+        <b>KEGG / Reactome · 通路信息</b> — Reactome 开源可用；KEGG 学术免费、商业需许可
+        <a href="https://reactome.org" target="_blank" rel="noopener">🔗 Reactome</a><a href="https://www.genome.jp/kegg/" target="_blank" rel="noopener">🔗 KEGG</a>
+      </div>
+      
+      <div style="font-size:.88rem;margin-top:.4rem">
+        <b>STRING · 蛋白互作网络全景</b> — 查互作伙伴以判断通路级联影响
+        <a href="https://string-db.org/network/9606.GLCE" target="_blank" rel="noopener">🔗 STRING (GLCE)</a>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="card question-card">
+    <div class="q-header">
+      <h3 style="margin:0">3. 正确的安全性
+        <span class="badge badge-status-red">🔴 危险信号</span></h3>
+      <div class="muted">打这个靶点会不会出事？</div>
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-red">🔴 危险信号</span>
+      <b> Open Targets（小鼠表型）</b> <span class="muted">· 必需基因判定（敲除致死性）</span>
+      <div style="margin-top:.4rem">小鼠敲除记录到致死类表型（如：neonatal lethality, complete penetrance）——提示该基因在正常生理中可能有不可替代的功能，抑制它的安全窗需要重点评估</div>
+      
+      <pre>{
+  "phenotypes": [
+    {
+      "classes": [
+        "renal/urinary system phenotype"
+      ],
+      "label": "absent kidney"
+    },
+    {
+      "classes": [
+        "respiratory system phenotype"
+      ],
+      "label": "abnormal lung morphology"
+    },
+    {
+      "classes": [
+        "vision/eye phenotype"
+      ],
+      "label": "iris coloboma"
+    },
+    {
+      "classes": [
+        "skeleton phenotype"
+      ],
+      "label": "abnormal skeleton development"
+    },
+    {
+      "classes": [
+        "skeleton phenotype"
+      ],
+      "label": "abnormal bone mineralization"
+    },
+    {
+      "classes": [
+        "limbs/digits/tail phenotype",
+        "skeleton phenotype"
+      ],
+      "label": "abnormal phalanx morphology"
+    },
+    {
+      "classes": [
+        "growth/size/body region phenotype"
+      ],
+      "label": "decreased body length"
+    },
+    {
+      "classes": [
+        "respiratory system phenotype"
+      ],
+      "label": "respiratory failure"
+    },
+    {
+      "classes": [
+        "skeleton phenotype"
+      ],
+      "label": "abnormal thoracic cage morphology"
+    },
+    {
+      "classes": [
+        "mortality/aging"
+      ],
+      "label": "neonatal lethality, complete penetrance"
+    },
+    {
+      "classes": [
+        "craniofacial phenotype",
+        "digestive/alimentary phenotype",
+        "growth/size/body region phenotype"
+      ],
+      "label": "cleft palate"
+    },
+    {
+      "classes": [
+        "limbs/digits/tail phenotype"
+      ],
+      "label": "polydactyly"
+    },
+    {
+      "classes": [
+        "limbs/digits/tail phenotype",
+        "skeleton phenotype"
+      ],
+      "label": "absent tarsus bones"
+    },
+    {
+      "classes": [
+        "skeleton phenotype"
+      ],
+      "label": "abnormal sternum morphology"
+    },
+    {
+      "classes": [
+        "limbs/digits/tail phenotype"
+      ],
+      "label": "curly tail"
+    },
+    {
+      "classes": [
+        "respiratory system phenotype"
+      ],
+      "label": "increased pulmonary alveolus wall thickness"
+    }
+  ]
+}</pre>
+      
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-green">🟢 良好</span>
+      <b> gnomAD（经 Open Targets）</b> <span class="muted">· 人群 LOF 约束（z 分数）</span>
+      <div style="margin-top:.4rem">LOF 约束 z = 0.48，弱约束——天然功能缺失携带者表型大概率良性，是最强的安全性背书</div>
+      
+      
+      
+      <div style="font-size:.85rem;margin-top:.4rem">
+        <a href="https://gnomad.broadinstitute.org/gene/ENSG00000138604" target="_blank" rel="noopener">🔗 gnomAD gene (GLCE)</a>　
+      </div>
+      
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-green">🟢 良好</span>
+      <b> Open Targets Safety</b> <span class="muted">· 已知安全事件清单</span>
+      <div style="margin-top:.4rem">无已报告安全事件——但创新靶点也可能只是还没人查过</div>
+      
+      <pre>{
+  "events": []
+}</pre>
+      
+      <div style="font-size:.85rem;margin-top:.4rem">
+        <a href="https://platform.opentargets.org/target/ENSG00000138604/safety" target="_blank" rel="noopener">🔗 OT Safety (GLCE)</a>　
+      </div>
+      
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-unknown">⚪ 信息不足</span>
+      <b> ChEMBL</b> <span class="muted">· 同靶点已上市药物安全记录</span>
+      <div style="margin-top:.4rem">ChEMBL 未解析到该靶点</div>
+      
+      
+      
+    </div>
+    
+    
+  </div>
+
+  
+  <div class="card question-card">
+    <div class="q-header">
+      <h3 style="margin:0">4. 正确的患者
+        <span class="badge badge-status-unknown">⚪ 信息不足</span></h3>
+      <div class="muted">你能不能识别出“对的那群病人”？</div>
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-unknown">⚪ 信息不足</span>
+      <b> OncoKB</b> <span class="muted">· 伴随诊断/精准肿瘤学证据</span>
+      <div style="margin-top:.4rem">未配置 ONCOKB_TOKEN（oncoKB.org 免费申请学术 token 后启用）</div>
+      
+      
+      
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-unknown">⚪ 信息不足</span>
+      <b> openFDA</b> <span class="muted">· 药物标签中的靶点/突变提及</span>
+      <div style="margin-top:.4rem">药物标签中未检索到提及——非肿瘤靶点常见，肿瘤靶点建议重点走 OncoKB/FDA CDx 清单</div>
+      
+      <pre>{
+  "note": "openFDA \u67e5\u8be2\u5931\u8d25\uff08\u9650\u6d41 240 \u6b21/\u5206\u949f\uff09\uff1aClient error \u0027404 Not Found\u0027 for url \u0027https://api.fda.gov/drug/label.json?search=indications_and_usage%3A%22GLCE%22\u0026limit=10\u0027\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+}</pre>
+      
+    </div>
+    
+    
+    <div style="background:#f2f4f3;border-radius:8px;padding:.8rem;margin-top:.6rem">
+      <b style="font-size:.9rem">📝 手动核查清单</b>
+      
+      <div style="font-size:.88rem;margin-top:.4rem">
+        <b>FDA 伴随诊断列表 · 有无配套伴随诊断</b> — FDA 已批准/cleared 的伴随诊断器械清单（含对应药物与适应症），标志物已有获批检测说明可检测性经过监管验证
+        <a href="https://www.fda.gov/medical-devices/in-vitro-diagnostics/list-cleared-or-approved-companion-diagnostic-devices-in-vitro-and-imaging-tools" target="_blank" rel="noopener">🔗 FDA List of Cleared or Approved CDx</a>
+      </div>
+      
+      <div style="font-size:.88rem;margin-top:.4rem">
+        <b>PubMed · 人群规模（标志物亚组患病率）</b> — 检索式：disease + prevalence + biomarker + subgroup；标志物把获益人群从 100% 缩到 5% 时，罕见病可能撑不起一个项目
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=胰腺癌+prevalence+biomarker" target="_blank" rel="noopener">🔗 PubMed 检索（自动拼接）</a>
+      </div>
+      
+      <div style="font-size:.88rem;margin-top:.4rem">
+        <b>Clarivate Epidemiology Intelligence · 人群规模（商业工具）</b> — 订阅制；预算有限时用上面的 PubMed 检索替代
+        <a href="https://clarivate.com" target="_blank" rel="noopener">🔗 clarivate.com</a>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="card question-card">
+    <div class="q-header">
+      <h3 style="margin:0">5. 正确的商业
+        <span class="badge badge-status-yellow">🟡 需注意</span></h3>
+      <div class="muted">值不值得做？</div>
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-yellow">🟡 需注意</span>
+      <b> ClinicalTrials.gov</b> <span class="muted">· 竞争格局（临床试验数量与终止原因）</span>
+      <div style="margin-top:.4rem">ClinicalTrials.gov 无相关试验（限定“胰腺癌”）——别人推进了可以借力；没人推进可能是空白，也可能是坑：把不确定性拆成可逐步验证的问题</div>
+      
+      <pre>{
+  "note": "",
+  "status_dist": {},
+  "terminated_samples": [],
+  "top_conditions": []
+}</pre>
+      
+      <div style="font-size:.85rem;margin-top:.4rem">
+        <a href="https://clinicaltrials.gov/search?intr=GLCE&amp;cond=胰腺癌" target="_blank" rel="noopener">🔗 ClinicalTrials.gov 检索</a>　
+      </div>
+      
+    </div>
+    
+    <div class="card">
+      <span class="badge badge-status-unknown">⚪ 信息不足</span>
+      <b> openFDA</b> <span class="muted">· 已上市产品线索（未满足需求参照）</span>
+      <div style="margin-top:.4rem">无已上市产品直接提及——若因果证据扎实，FIC 潜力本身就是机遇</div>
+      
+      
+      
+    </div>
+    
+    
+    <div style="background:#f2f4f3;border-radius:8px;padding:.8rem;margin-top:.6rem">
+      <b style="font-size:.9rem">📝 手动核查清单</b>
+      
+      <div style="font-size:.88rem;margin-top:.4rem">
+        <b>FTO 专利分析 · 专利自由空间（Freedom to Operate）</b> — 临床前阶段发现的专利可以用有限资源挑战或绕开；三期才发现就只能高价谈许可或重复临床——立项前必查
+        <a href="https://patents.google.com/?q=GLCE" target="_blank" rel="noopener">🔗 Google Patents</a>
+      </div>
+      
+      <div style="font-size:.88rem;margin-top:.4rem">
+        <b>Cortellis / Evaluate Pharma · 市场预测与交易动态</b> — 订阅制商业情报：同赛道药物的市场预测、交易格局
+        <a href="https://www.cortellis.com" target="_blank" rel="noopener">🔗 cortellis.com</a><a href="https://www.evaluate.com" target="_blank" rel="noopener">🔗 evaluate.com</a>
+      </div>
+      
+    </div>
+    
+  </div>
+
+
+<script>
+(function () {
+  document.querySelectorAll('script[id^="cfg-"]').forEach(function (s) {
+    var canvas = document.getElementById("cv-" + s.id.slice(4));
+    if (!canvas || typeof Chart === "undefined") return;
+    new Chart(canvas, JSON.parse(s.textContent));
+  });
+})();
+</script>
+<hr>
+<p class="muted" style="font-size:.85rem">
+  数据来源：Open Targets Platform、GWAS Catalog、Human Protein Atlas、UniProt、STRING、
+  ChEMBL、ClinicalTrials.gov、openFDA（详见项目 README /about）。<br>
+  本报告由开源数据自动生成，仅供研究参考，不构成任何立项或投资建议。
+</p>
+</body>
+</html>

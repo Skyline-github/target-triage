@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}评估归档 · 靶点立项五问{% endblock %}
+{% block content %}
+<h2 class="mb-3">评估归档</h2>
+{% if items %}
+<table class="table bg-white">
+  <thead><tr><th>靶点</th><th>适应症</th><th>总体状态</th><th>时间</th><th></th></tr></thead>
+  <tbody>
+    {% for it in items %}
+    <tr>
+      <td class="fw-bold">{{ it.gene_symbol }}</td>
+      <td>{{ it.indication or "—" }}</td>
+      <td><span class="badge badge-status-{{ it.overall_status }}">{{ it.status_label }}</span></td>
+      <td class="small">{{ it.created_at }}</td>
+      <td><a href="/report/{{ it.id }}" class="btn btn-sm btn-outline-success">查看</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="alert alert-light border">暂无评估记录，<a href="/">去发起第一次评估</a>。</div>
+{% endif %}
+{% endblock %}

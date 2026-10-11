@@ -1,0 +1,74 @@
+{% macro evidence_card(ev, dom_id) %}
+<div class="card evidence-card mb-3">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+      <div>
+        <span class="badge badge-status-{{ ev.status }}">{{ badge[ev.status] }}</span>
+        <strong class="ms-1">{{ ev.source }}</strong>
+        <span class="text-muted small">· {{ ev.check }}</span>
+      </div>
+    </div>
+    <div class="mt-2">{{ ev.summary }}</div>
+    {% if ev.chart %}
+    <div class="chart-wrap mt-3 {% if ev.chart.panels %}row g-3{% endif %}">
+      {% if ev.chart.type %}
+        <div class="chart-box" style="height:260px">
+          <canvas id="cv-{{ dom_id }}"></canvas>
+        </div>
+        <script id="cfg-{{ dom_id }}" type="application/json">{{ ev.chart | tojson }}</script>
+      {% else %}
+        {% for pc in ev.chart.panels %}
+        <div class="{% if ev.chart.panels | length > 1 %}col-md-6{% endif %}">
+          <div class="chart-box" style="height:260px">
+            <canvas id="cv-{{ dom_id }}-p{{ loop.index0 }}"></canvas>
+          </div>
+          <script id="cfg-{{ dom_id }}-p{{ loop.index0 }}" type="application/json">{{ pc | tojson }}</script>
+        </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% endif %}
+    {% if ev.detail %}
+    <details class="mt-2">
+      <summary class="text-primary small" style="cursor:pointer">查看原始数据</summary>
+      <pre class="detail-block p-2 mt-1">{{ ev.detail | tojson(indent=2) | truncate(4000) }}</pre>
+    </details>
+    {% endif %}
+    {% if ev.links %}
+    <div class="mt-2 small">
+      {% for l in ev.links %}
+        <a href="{{ l.url }}" target="_blank" rel="noopener" class="me-3">🔗 {{ l.label }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro question_section(q, index, dom_prefix) %}
+<div class="card question-card mb-4" id="q-{{ q.key }}">
+  <div class="card-body">
+    <div class="q-header mb-3 d-flex justify-content-between align-items-start">
+      <div>
+        <h4 class="mb-1">{{ index }}. {{ q.title }}
+          <span class="badge badge-status-{{ q.status }} ms-2">{{ badge[q.status] }}</span></h4>
+        <div class="text-muted">{{ q.question }}</div>
+      </div>
+    </div>
+    {% for ev in q.evidences %}{{ evidence_card(ev, dom_prefix ~ '-' ~ loop.index0) }}{% endfor %}
+    {% if q.manual_checklist %}
+    <div class="mt-3 p-3 rounded manual-box">
+      <div class="fw-bold mb-2 small">📝 手动核查清单（无自动化数据源）</div>
+      {% for ev in q.manual_checklist %}
+      <div class="mb-2 small">
+        <strong>{{ ev.source }} · {{ ev.check }}</strong> — {{ ev.summary }}
+        {% for l in ev.links %}
+          <a href="{{ l.url }}" target="_blank" rel="noopener">🔗 {{ l.label }}</a>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}

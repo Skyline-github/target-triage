@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-9">
+    <h1 class="mb-1">靶点立项五问</h1>
+    <p class="text-muted mb-4">
+      拿到一个靶点，先问哪五个问题？——<b>靶点、组织、安全性、患者、商业</b>。
+      五个维度是乘法关系：评估要找的不是哪个维度得分最高，而是哪个维度会一票否决。
+    </p>
+
+    <div class="card p-4 mb-4">
+      <form hx-post="/assess" hx-target="#result" hx-swap="innerHTML">
+        <div class="row g-3">
+          <div class="col-md-5">
+            <label class="form-label">靶点基因符号</label>
+            <input class="form-control form-control-lg" name="gene" required
+                   placeholder="如 EGFR、STAT3" autofocus>
+          </div>
+          <div class="col-md-5">
+            <label class="form-label">适应症（可选）</label>
+            <input class="form-control form-control-lg" name="indication"
+                   placeholder="如 Alzheimer's disease、非小细胞肺癌">
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button class="btn btn-success btn-lg w-100" type="submit">开始评估</button>
+          </div>
+        </div>
+        <div class="form-text mt-2">
+          首次评估会下载 Human Protein Atlas 组织表达数据（约 50MB，之后有缓存）；
+          全部数据来自开源数据库，单次评估约 10–40 秒。
+        </div>
+      </form>
+    </div>
+
+    <div id="result"></div>
+
+    <div class="row mt-4 g-3">
+      {% for q in questions %}
+      <div class="col-md-4">
+        <div class="card h-100 p-3">
+          <div class="fw-bold">{{ loop.index }}. {{ q.title }}</div>
+          <div class="text-muted small">{{ q.question }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

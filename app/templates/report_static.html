@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>靶点立项五问 · {{ r.gene_symbol }}</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <style>
+    body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+           color: #1d3a34; max-width: 1080px; margin: 2rem auto; padding: 0 1rem;
+           background: #f1f4f3; }
+    .card { background: #fff; border: 1px solid #e2e8e6; border-radius: 10px;
+            padding: 1rem 1.2rem; margin-bottom: .9rem;
+            box-shadow: 0 1px 2px rgba(29,58,52,.05); }
+    .q-header { margin-bottom: 1rem; }
+    .badge { display: inline-block; padding: .2em .6em; border-radius: 999px;
+             font-size: .8rem; font-weight: 600; }
+    .badge-status-green   { background: #d1e7dd; color: #0f5132; }
+    .badge-status-yellow  { background: #fff3cd; color: #664d03; }
+    .badge-status-red     { background: #f8d7da; color: #842029; }
+    .badge-status-unknown { background: #e2e3e5; color: #41464b; }
+    .flag-box { border-radius: 8px; padding: .8rem 1rem; margin-bottom: .8rem;
+                font-size: .9rem; }
+    pre { background: #f2f4f3; padding: .6rem; border-radius: 6px;
+          font-size: .78rem; overflow: auto; max-height: 280px; }
+    .muted { color: #6b7c78; }
+    a { color: #2e6b5e; }
+    .overview { background: linear-gradient(180deg, #fff, #f7faf9); }
+    .question-card { border-top: 4px solid #2e6b5e; }
+    .chart-box { position: relative; height: 250px; }
+    .row { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .col { flex: 1 1 320px; }
+  </style>
+</head>
+<body>
+<div class="card overview">
+  <div class="row">
+    <div class="col">
+      <h1 style="font-size:1.6rem;margin:.2rem 0">{{ r.gene_symbol }}
+        {% if r.gene_name and r.gene_name != r.gene_symbol %}
+          <span class="muted" style="font-size:1rem;font-weight:400">{{ r.gene_name }}</span>
+        {% endif %}</h1>
+      <p class="muted" style="font-size:.88rem">
+        Ensembl: {{ r.ensembl_id }} · UniProt: {{ r.uniprot_id or "—" }}<br>
+        适应症：{{ r.indication or "不限" }} · 评估时间：{{ r.created_at }}</p>
+      <span class="badge badge-status-{{ r.overall_status }}">
+        总体筛查信号：{{ badge[r.overall_status] }}</span>
+      <div class="chart-box" style="max-width:340px">
+        <canvas id="cv-radar"></canvas>
+      </div>
+      <script id="cfg-radar" type="application/json">{{ radar_cfg | tojson }}</script>
+    </div>
+    <div class="col">
+      <div class="flag-box" style="background:#fdf1f2;border:1px solid #f1c4ca">
+        <b>🚩 风险信号（{{ r.risk_flags | length }}）——数据筛查提示，需人工判断，不等于结论</b>
+        {% if r.risk_flags %}<ul>{% for v in r.risk_flags %}<li>{{ v }}</li>{% endfor %}</ul>
+        {% else %}<div class="muted">无</div>{% endif %}
+      </div>
+      <div class="flag-box" style="background:#fdf8ec;border:1px solid #ead9a8">
+        <b>👀 建议进一步核查（{{ r.watch_flags | length }}）</b>
+        {% if r.watch_flags %}<ul>{% for v in r.watch_flags %}<li>{{ v }}</li>{% endfor %}</ul>
+        {% else %}<div class="muted">无</div>{% endif %}
+      </div>
+      <p class="muted" style="font-size:.82rem">
+        红/黄/绿由阈值规则（app/engine/rules.yaml）自动生成，仅为筛查参考；
+        五问是乘法关系——重点关注哪个维度会成为短板，而不是算总分。</p>
+    </div>
+  </div>
+</div>
+
+{% set ns = namespace(i=0) %}
+{% for q in r.questions %}
+  {% set ns.i = ns.i + 1 %}
+  <div class="card question-card">
+    <div class="q-header">
+      <h3 style="margin:0">{{ ns.i }}. {{ q.title }}
+        <span class="badge badge-status-{{ q.status }}">{{ badge[q.status] }}</span></h3>
+      <div class="muted">{{ q.question }}</div>
+    </div>
+    {% for ev in q.evidences %}
+    <div class="card">
+      <span class="badge badge-status-{{ ev.status }}">{{ badge[ev.status] }}</span>
+      <b> {{ ev.source }}</b> <span class="muted">· {{ ev.check }}</span>
+      <div style="margin-top:.4rem">{{ ev.summary }}</div>
+      {% if ev.chart %}
+        {% if ev.chart.type %}
+        <div class="chart-box"><canvas id="cv-{{ loop.index }}-{{ ns.i }}"></canvas>
+          <script id="cfg-{{ loop.index }}-{{ ns.i }}" type="application/json">{{ ev.chart | tojson }}</script>
+        </div>
+        {% else %}
+        <div class="row">
+          {% for pc in ev.chart.panels %}
+          <div class="col">
+            <div class="chart-box"><canvas id="cv-{{ loop.index }}-{{ ns.i }}-p{{ loop.index }}"></canvas>
+              <script id="cfg-{{ loop.index }}-{{ ns.i }}-p{{ loop.index }}" type="application/json">{{ pc | tojson }}</script>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      {% endif %}
+      {% if ev.detail %}<pre>{{ ev.detail | tojson(indent=2) | truncate(4000) }}</pre>{% endif %}
+      {% if ev.links %}
+      <div style="font-size:.85rem;margin-top:.4rem">
+        {% for l in ev.links %}<a href="{{ l.url }}" target="_blank" rel="noopener">🔗 {{ l.label }}</a>　{% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% if q.manual_checklist %}
+    <div style="background:#f2f4f3;border-radius:8px;padding:.8rem;margin-top:.6rem">
+      <b style="font-size:.9rem">📝 手动核查清单</b>
+      {% for ev in q.manual_checklist %}
+      <div style="font-size:.88rem;margin-top:.4rem">
+        <b>{{ ev.source }} · {{ ev.check }}</b> — {{ ev.summary }}
+        {% for l in ev.links %}<a href="{{ l.url }}" target="_blank" rel="noopener">🔗 {{ l.label }}</a>{% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+{% endfor %}
+
+<script>
+(function () {
+  document.querySelectorAll('script[id^="cfg-"]').forEach(function (s) {
+    var canvas = document.getElementById("cv-" + s.id.slice(4));
+    if (!canvas || typeof Chart === "undefined") return;
+    new Chart(canvas, JSON.parse(s.textContent));
+  });
+})();
+</script>
+<hr>
+<p class="muted" style="font-size:.85rem">
+  数据来源：Open Targets Platform、GWAS Catalog、Human Protein Atlas、UniProt、STRING、
+  ChEMBL、ClinicalTrials.gov、openFDA（详见项目 README /about）。<br>
+  本报告由开源数据自动生成，仅供研究参考，不构成任何立项或投资建议。
+</p>
+</body>
+</html>
